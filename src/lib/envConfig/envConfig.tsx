@@ -1,0 +1,1 @@
+export const envEnviroment = process.env.NEXT_PUBLIC_ENVIRONMENT;
