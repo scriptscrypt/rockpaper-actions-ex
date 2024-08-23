@@ -179,7 +179,7 @@ export const POST = async (req: Request) => {
             action: {
               type: "action",
               title: `Rock paper scissors`,
-              icon: new URL("/rps.png", new URL(req.url).origin).toString(),
+              icon: new URL("/initial.png", new URL(req.url).origin).toString(),
               description: `\nPlay Rock Paper Scissors, You've got another chance! to Win Big!`,
               label: "Select Action",
               links: {
