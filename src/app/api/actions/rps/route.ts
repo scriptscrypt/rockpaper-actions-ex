@@ -25,7 +25,7 @@ export const GET = async (req: Request) => {
   const payload: ActionGetResponse = {
     type: "action",
     title: `Rock paper scissors`,
-    icon: new URL("/rps.png", new URL(req.url).origin).toString(),
+    icon: new URL("/initial.png", new URL(req.url).origin).toString(),
     description: `\nPlay Rock Paper Scissors with your friends, Enter your Telegram username and select your action.`,
     label: "Enter your Telegram userId",
     links: {
@@ -82,22 +82,6 @@ export const POST = async (req: Request) => {
   // Get the 'paramRPS' parameter from the URL
   const userChoice = requestUrl.searchParams.get("paramRPS");
   console.log(`User's choice: ${userChoice}`);
-
-  // // Get the 'paramTgUserId' parameter from the URL
-  // const tgUserId = requestUrl.searchParams.get("paramTgUserId");
-  // console.log(`User's Telegram userId: ${tgUserId}`);
-
-  // if (!tgUserId) {
-  //   return NextResponse?.json(
-  //     {
-  //       message: "Please provide a Telegram userId.",
-  //     },
-  //     {
-  //       headers: ACTIONS_CORS_HEADERS,
-  //       status: 400,
-  //     }
-  //   );
-  // }
 
   // Ensure userChoice is valid
   const validChoices = ["rock", "paper", "scissors"];
@@ -170,14 +154,14 @@ export const POST = async (req: Request) => {
     payload = await createPostResponse({
       fields: {
         transaction,
-        message: `You chose ${userChoice}, the server chose ${serverChoice}. Result: ${result}`,
+        message: `You chose ${userChoice?.toUpperCase()}, the Server Blinked ${serverChoice?.toUpperCase()}. Result: ${result}`,
         links: {
           next: {
             action: {
               type: "completed",
               title: `Rock paper scissors #2`,
-              icon: new URL("/rps.png", new URL(req.url).origin).toString(),
-              description: `\nPlay Rock Paper Scissors, You've ${result}!`,
+              icon: new URL("/win.png", new URL(req.url).origin).toString(),
+              description: `You chose ${userChoice?.toUpperCase()}, the Server Blinked ${serverChoice?.toUpperCase()}. Result: ${result}`,
               label: "Yayy",
             },
             type: "inline",
