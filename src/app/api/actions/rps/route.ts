@@ -63,9 +63,9 @@ export const GET = async (req: Request) => {
         },
       ],
     },
-    // error: {
-    //   message: "Please check Group Id and Amount",
-    // }
+    error: {
+      message: "Blink error: Invalid GET",
+    }
   };
 
   return Response.json(payload, {
@@ -139,12 +139,12 @@ export const POST = async (req: Request) => {
             title: `Rock paper scissors #2`,
             icon: new URL("/rps.png", new URL(req.url).origin).toString(),
             description: `\nPlay Rock Paper Scissors, You've got this!`,
-            label: "Enter your Telegram userId",
+            label: "Select Action",
             links: {
               actions: [
                 {
                   label: "Rock paper scissors",
-                  href: `${baseHref}/rps`,
+                  href: `${baseHref}/test`,
                   parameters: [
                     {
                       type: "radio",
@@ -170,9 +170,9 @@ export const POST = async (req: Request) => {
                 },
               ],
             },
-            // error: {
-            //   message: "Please check Group Id and Amount",
-            // }
+            error: {
+              message: "Blink error: Invalid POST: rps",
+            }
           },
 
           type: "inline",

@@ -1,10 +1,9 @@
 import { envEnviroment } from "@/lib/envConfig/envConfig";
 import {
+  ActionPostRequest,
   ActionPostResponse,
   ACTIONS_CORS_HEADERS,
   createPostResponse,
-  ActionGetResponse,
-  ActionPostRequest,
 } from "@solana/actions";
 import {
   clusterApiUrl,
@@ -15,62 +14,6 @@ import {
   Transaction,
 } from "@solana/web3.js";
 
-export const GET = async (req: Request) => {
-  const requestUrl = new URL(req.url);
-
-  const baseHref = new URL(`/api/actions`, requestUrl.origin).toString();
-
-  const payload: ActionGetResponse = {
-    type: "action",
-    title: `Rock paper scissors #2`,
-    icon: new URL("/rps.png", new URL(req.url).origin).toString(),
-    description: `\nPlay Rock Paper Scissors, You've got this!`,
-    label: "Select Action",
-    links: {
-      actions: [
-        {
-          label: "Rock paper scissors",
-          href: `${baseHref}/test?paramAction={paramAction}`,
-          parameters: [
-            {
-              type: "checkbox",
-              name: "paramAction",
-              label: "Select R/P/S",
-              required: true,
-              options: [
-                {
-                  label: "Rock",
-                  value: "rock",
-                },
-                {
-                  label: "Paper",
-                  value: "paper",
-                },
-                {
-                  label: "Scissors",
-                  value: "scissors",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    // error: {
-    //   message: "Please check Group Id and Amount",
-    // }
-  };
-
-  return Response.json(payload, {
-    headers: ACTIONS_CORS_HEADERS,
-  });
-};
-
-// DO NOT FORGET TO INCLUDE THE `OPTIONS` HTTP METHOD
-// THIS WILL ENSURE CORS WORKS FOR BLINKS
-export const OPTIONS = GET;
-
-// Testing in the Same File - Working :
 export const POST = async (req: Request) => {
   const requestUrl = new URL(req.url);
 
@@ -127,14 +70,12 @@ export const POST = async (req: Request) => {
       message: "Rock paper scissors",
       links: {
         next: {
-          href: `${baseHref}/rps`,
+          href: `${baseHref}/completed`,
           type: "post",
         },
       },
     },
   });
-  console.log("Post response payload:", postResPayload);
-
   return Response.json(postResPayload, {
     headers: ACTIONS_CORS_HEADERS,
   });
